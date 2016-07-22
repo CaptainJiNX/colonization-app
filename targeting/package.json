@@ -1,0 +1,13 @@
+{
+  "name": "targeting",
+  "version": "1.0.0",
+  "description": "targeting",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "aws-sdk": "^2.5.5",
+    "express": "^4.14.0"
+  }
+}

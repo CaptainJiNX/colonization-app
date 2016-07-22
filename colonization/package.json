@@ -1,0 +1,14 @@
+{
+  "name": "colonization",
+  "version": "1.0.0",
+  "description": "colonization",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "request": "^2.74.0"
+  }
+}
