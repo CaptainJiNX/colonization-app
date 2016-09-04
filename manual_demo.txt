@@ -1,1 +1,26 @@
-http --json :1339/colonize targets:='["stockholm", "lund", "korpilombolo"]'
+make
+
+docker run --rm ctjinx/spaceship:local
+
+docker run --rm --env REDIS_HOST=spaceredis ctjinx/spaceship:local
+
+docker network create spacenet
+
+docker run -d --net spacenet --name spaceredis ctjinx/alpine-redis
+docker run --rm --net spacenet --env REDIS_HOST=spaceredis -p 1337:80 ctjinx/spaceship:local
+
+http :1337/healthcheck
+http --json :1337/launch shipCode=ABC123 destination=somewhere
+
+
+
+docker exec -it spaceredis redis-cli
+	SET ABC123 '{ "code": "ABC123", "status": "ready" }'
+	exit
+
+http --json :1337/launch shipCode=ABC123 destination=somewhere
+http --json :1337/launch shipCode=ABC123 destination=somewhere
+
+...
+
+dclean
