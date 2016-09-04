@@ -22,7 +22,7 @@ app.post('/launch', (req, res) => {
 		}));
 });
 
-const port = process.env.EXTERNAL_PORT || 1337;
+const port = process.env.EXTERNAL_PORT || 80;
 
 redisClient().on('ready', () => {
 	app.listen(port, () => console.log(`Listening on port ${port}...`));
