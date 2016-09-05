@@ -1,11 +1,10 @@
 'use strict';
 
 const request = require('request');
-const serviceHost = process.env.SPACESHIP_HOST || 'localhost:1337';
 
 const launchShip = (target) => new Promise((resolve, reject) => {
 	request({ 
-		url: `http://${serviceHost}/launch`,
+		url: `http://spaceship/launch`,
 		method: 'POST',
 		json: {
 			shipCode: target.shipCode,

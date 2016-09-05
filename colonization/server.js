@@ -18,7 +18,7 @@ app.post('/colonize', (req, res) => {
 		.then((result) => res.json(result));
 });
 
-const port = process.env.EXTERNAL_PORT || 1339;
+const port = process.env.EXTERNAL_PORT || 80;
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 

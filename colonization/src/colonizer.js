@@ -1,7 +1,7 @@
 'use strict';
 
-const targeting = require('./targeting');
-const spaceship = require('./spaceship');
+let targeting = require('./targeting');
+let spaceship = require('./spaceship');
 
 const validateLaunch = (launchResult) => new Promise((resolve, reject) => {
 	if(launchResult.shipStatus !== 'launched') {

@@ -1,0 +1,8 @@
+version: "2"
+services:
+
+  spaceship:
+    image: ctjinx/spaceship:latest
+
+  targeting:
+    image: ctjinx/targeting:latest
