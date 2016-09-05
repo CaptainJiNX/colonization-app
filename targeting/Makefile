@@ -9,16 +9,23 @@ int-test-env=docker-compose.int-test-env.yml
 build-local:
 	@docker build -t $(imagename):local .
 
+build-local-silent:
+	@echo "Building $(imagename):local ..."
+	@docker build -t $(imagename):local . > /dev/null || \
+		docker build -t $(imagename):local .
+
 deploy-local-to-latest: build-local
 	@docker tag $(imagename):local $(imagename):latest && docker push $(imagename):latest
 
 build-test:
-	@docker build --build-arg node_env=test -t $(imagename):test .
+	@echo "Building $(imagename):test ..."
+	@docker build --build-arg node_env=test -t $(imagename):test . > /dev/null || \
+		docker build --build-arg node_env=test -t $(imagename):test .
 
 test-unit: build-test
 	@docker run --rm -it $(imagename):test npm run test-unit || exit 1
 
-integration-test-environment: build-local
+integration-test-environment: build-local-silent
 	@docker-compose -p $(project) -f $(int-test-env) up -d
 
 test-integration: build-test integration-test-environment
