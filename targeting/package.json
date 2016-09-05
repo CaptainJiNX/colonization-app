@@ -3,11 +3,22 @@
   "version": "1.0.0",
   "description": "targeting",
   "main": "server.js",
+  "scripts": {
+    "test-unit": "_mocha tests/unit/ --timeout 1000 --recursive",
+    "test-integration": "_mocha tests/integration/ --timeout 4000 --recursive"
+  },
   "keywords": [],
   "author": "",
   "license": "",
   "dependencies": {
     "aws-sdk": "^2.5.5",
     "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "request": "^2.74.0",
+    "retry": "^0.10.0",
+    "rewire": "^2.5.2"
   }
 }

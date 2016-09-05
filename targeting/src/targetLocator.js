@@ -1,9 +1,16 @@
 'use strict';
 
-const AWS = require('aws-sdk');
+let AWS = require('aws-sdk');
+
+const localS3Options = {
+	endpoint: new AWS.Endpoint(`http://${process.env.LOCAL_S3}:8000`),
+	accessKeyId: 'accessKey1',
+	secretAccessKey: 'verySecretKey1',
+	s3ForcePathStyle: true
+};
 
 module.exports = () => {
-	const s3 = new AWS.S3();
+	const s3 = process.env.LOCAL_S3 ? new AWS.S3(localS3Options) : new AWS.S3();
 
 	return {
 		get: (targetName) => new Promise((resolve, reject) => {

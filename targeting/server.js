@@ -15,7 +15,7 @@ app.get('/target/:name', (req, res) => {
 });
 
 
-let port = process.env.EXTERNAL_PORT || 1338;
+let port = process.env.EXTERNAL_PORT || 80;
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 

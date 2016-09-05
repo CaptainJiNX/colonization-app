@@ -1,0 +1,13 @@
+version: "2"
+services:
+  targeting:
+    image: ctjinx/targeting:local
+    environment:
+      - LOCAL_S3=targeting-s3
+    depends_on:
+      - targeting-s3
+
+  targeting-s3:
+    image: ctjinx/local-s3
+    volumes:
+      - ./tests/s3-buckets:/app/mockData
