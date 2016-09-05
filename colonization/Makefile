@@ -1,9 +1,13 @@
-imagename=ctjinx/colonization
+service=colonization
+imagename=ctjinx/$(service)
 
 project=colonize
 network=$(project)_default
 int-test-env=docker-compose.int-test-env.yml
 int-test-dep=docker-compose.int-test-dep.yml
+local-yml=local-services.yml
+
+LOCAL_SERVICES ?= "$(service)"
 
 .DEFAULT_GOAL := build-local
 
@@ -22,20 +26,23 @@ test-unit: build-test
 pull-dependencies:
 	@docker-compose -f $(int-test-dep) pull
 
-integration-test-environment: build-local pull-dependencies
-	@docker-compose -p $(project) -f $(int-test-env) -f $(int-test-dep) up -d
+local-services-yml:
+	@export LOCAL_SERVICES="$(LOCAL_SERVICES)" && ./generate-local-services.sh
+
+integration-test-environment: build-local pull-dependencies local-services-yml
+	@docker-compose -p $(project) -f $(int-test-env) -f $(int-test-dep) -f $(local-yml) up -d
 
 test-integration: build-test integration-test-environment
 	@docker run --rm -it --net $(network) $(imagename):test npm run test-integration && \
-		docker-compose -p $(project) -f $(int-test-env) -f $(int-test-dep) down && \
+		docker-compose -p $(project) -f $(int-test-env) -f $(int-test-dep) -f $(local-yml) down && \
 		exit 0 || \
-			docker-compose -p $(project) -f $(int-test-env) -f $(int-test-dep) ps -q | \
+			docker-compose -p $(project) -f $(int-test-env) -f $(int-test-dep) -f $(local-yml) ps -q | \
 				while read line; do \
 					echo '\n\n\n\n'; \
 					docker logs $$line; \
 					tput sgr0; \
 				done && \
-			docker-compose -p $(project) -f $(int-test-env) -f $(int-test-dep) down && \
+			docker-compose -p $(project) -f $(int-test-env) -f $(int-test-dep) -f $(local-yml) down && \
 			exit 1
 
 test: test-unit test-integration
