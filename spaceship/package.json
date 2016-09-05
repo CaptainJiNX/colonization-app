@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "spaceship",
   "main": "server.js",
+  "scripts": {
+    "test-unit": "_mocha tests/unit/ --timeout 1000 --recursive"
+  },
   "keywords": [],
   "author": "",
   "license": "",
@@ -10,5 +13,10 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "redis": "^2.6.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "rewire": "^2.5.2"
   }
 }

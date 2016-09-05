@@ -1,7 +1,7 @@
 'use strict';
 
-const shipRepository = require('./shipRepository');
-const hardwareInterface = require('./hardwareInterface')
+let shipRepository = require('./shipRepository');
+let hardwareInterface = require('./hardwareInterface')
 
 const errorWithHttpCode = (msg, httpCode) => {
 	const error = new Error(msg);
