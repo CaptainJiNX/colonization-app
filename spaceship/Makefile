@@ -1,5 +1,9 @@
 imagename=ctjinx/spaceship
 
+project=colonize
+network=$(project)_default
+int-test-env=docker-compose.int-test-env.yml
+
 .DEFAULT_GOAL := build-local
 
 build-local:
@@ -14,4 +18,14 @@ build-test:
 test-unit: build-test
 	@docker run --rm -it $(imagename):test npm run test-unit || exit 1
 
-test: test-unit
+integration-test-environment: build-local
+	@docker-compose -p $(project) -f $(int-test-env) up -d
+
+test-integration: build-test integration-test-environment
+	@docker run --rm -it --net $(network) $(imagename):test npm run test-integration && \
+		docker-compose -p $(project) -f $(int-test-env) down && \
+		exit 0 || \
+			docker-compose -p $(project) -f $(int-test-env) down && \
+			exit 1
+
+test: test-unit test-integration

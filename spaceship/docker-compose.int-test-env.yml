@@ -1,0 +1,12 @@
+version: "2"
+services:
+  spaceship:
+    image: ctjinx/spaceship:local
+    environment:
+      - REDIS_HOST=spaceship-redis
+      - INTEGRATION_TEST=true
+    depends_on:
+      - spaceship-redis
+
+  spaceship-redis:
+    image: ctjinx/alpine-redis
