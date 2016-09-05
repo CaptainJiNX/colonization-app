@@ -28,7 +28,7 @@ module.exports = () => {
 
 				const splitBody = response.Body.toString().split(';');
 
-				const shipCode = splitBody[0];
+				const ship = splitBody[0];
 				const latitude = splitBody[1];
 				const longitude = splitBody[2];
 
@@ -36,7 +36,7 @@ module.exports = () => {
 					return reject(new Error('Target could not be parsed.'));
 				}
 
-				resolve({ shipCode, latitude, longitude });
+				resolve({ ship, latitude, longitude });
 			});
 		})
 	};

@@ -21,7 +21,7 @@ describe('targetLocator', () => {
 		});
 
 		it('should return the target', () => targets.get('ANY')
-			.then(result => expect(result).to.eql({ shipCode: 'ABC', latitude: '12.345', longitude: '67.890' })));
+			.then(result => expect(result).to.eql({ ship: 'ABC', latitude: '12.345', longitude: '67.890' })));
 	});
 
 	describe('when response does not have enough fields', () => {

@@ -37,8 +37,8 @@ describe('targeting', () => {
 			expect(response.statusCode).to.equal(200);
 		});
 
-		it('should return ship code', () => {
-			expect(response.body.shipCode).to.equal('ABC123');
+		it('should return ship', () => {
+			expect(response.body.ship).to.equal('ABC123');
 		});
 
 		it('should return latitude', () => {
