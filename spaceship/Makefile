@@ -25,6 +25,12 @@ test-integration: build-test integration-test-environment
 	@docker run --rm -it --net $(network) $(imagename):test npm run test-integration && \
 		docker-compose -p $(project) -f $(int-test-env) down && \
 		exit 0 || \
+			docker-compose -p $(project) -f $(int-test-env) ps -q | \
+				while read line; do \
+					echo '\n\n\n\n'; \
+					docker logs $$line; \
+					tput sgr0; \
+				done && \
 			docker-compose -p $(project) -f $(int-test-env) down && \
 			exit 1
 
