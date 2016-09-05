@@ -28,8 +28,6 @@ const setStatus = (shipCode, status) => new Promise((resolve, reject) => {
 			return reject(err);
 		}
 
-		throw new Error('----------> BAM!!! <------------');
-
 		resolve(ship);
 	})
 });
