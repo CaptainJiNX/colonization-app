@@ -7,7 +7,7 @@ const launchShip = (target) => new Promise((resolve, reject) => {
 		url: `http://spaceship/launch`,
 		method: 'POST',
 		json: {
-			shipCode: target.ship,
+			shipCode: target.ship || target.shipCode,
 			destination: {
 				latitude: target.latitude,
 				longitude: target.longitude
